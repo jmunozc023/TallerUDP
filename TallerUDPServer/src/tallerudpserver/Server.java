@@ -16,6 +16,7 @@ import java.util.logging.Logger;
  * @author josep
  */
 public class Server {
+    private int[] [] parejas = new int[10][10];
     private DatagramPacket out;
     private DatagramPacket in;
     private DatagramSocket socket;
