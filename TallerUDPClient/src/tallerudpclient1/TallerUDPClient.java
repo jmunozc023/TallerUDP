@@ -14,7 +14,7 @@ public class TallerUDPClient {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        var client= new Client1();
+        var client= new Client();
         client.sendData();
         client.getData();
     }

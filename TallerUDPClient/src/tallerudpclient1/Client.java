@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package tallerudpclient2;
+package tallerudpclient1;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -18,16 +18,21 @@ import javax.swing.JOptionPane;
  *
  * @author josep
  */
-public class Client2 {
+public class Client extends Thread{
     private DatagramPacket out, in;
     private DatagramSocket socket;
+    private String flag;
     
-    public Client2(){
+    public Client(){
         try {
             socket= new DatagramSocket();
         } catch (SocketException ex) {
-            Logger.getLogger(Client2.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
+    }
+    public void read(){
+        var buffer= new byte[200];
+        out= new DatagramPacket(buffer, 0, buffer.length);
     }
     public void sendData(){
         var text= JOptionPane.showInputDialog("text");
@@ -37,10 +42,10 @@ public class Client2 {
             try {
                 socket.send(out);
             } catch (IOException ex) {
-                Logger.getLogger(Client2.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (UnknownHostException ex) {
-            Logger.getLogger(Client2.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     public void getData (){
@@ -51,7 +56,7 @@ public class Client2 {
             var text = new String(in.getData());
             System.out.println(text.trim());
         } catch (IOException ex) {
-            Logger.getLogger(Client2.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
