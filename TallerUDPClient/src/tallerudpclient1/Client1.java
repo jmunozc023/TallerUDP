@@ -32,7 +32,7 @@ public class Client1 {
     public void sendData(){
         var text= JOptionPane.showInputDialog("text");
         try {
-            var IP= InetAddress.getByName("192.168.0.22");
+            var IP= InetAddress.getByName("10.201.3.68");
             out = new DatagramPacket(text.getBytes(), 0, text.getBytes().length, IP, 7800);
             try {
                 socket.send(out);
