@@ -39,7 +39,6 @@ public class Server {
         out = new DatagramPacket(buffer, 0, buffer.length);
         try {
             socket.receive(out);
-            ReadString(new String(out.getData(), out));
         } catch (IOException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -62,9 +61,6 @@ public class Server {
         }
     }
     
-    public void write(final String text, final int port final InetAddress IP){
-    in =new DatagramPacket
-    }
     public void sendData(String text, DatagramPacket client) {
         try {
             out = new DatagramPacket(text.getBytes(), 0, text.getBytes().length, client.getAddress(), client.getPort());

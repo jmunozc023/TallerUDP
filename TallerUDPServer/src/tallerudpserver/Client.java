@@ -10,7 +10,7 @@ import java.net.InetAddress;
  *
  * @author josep
  */
-public class Client {
+public class Client{
     private int port;
     private InetAddress ip;
     private String flag;

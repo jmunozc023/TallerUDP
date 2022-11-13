@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package tallerudpclient1;
+package tallerudpclient;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -37,7 +37,7 @@ public class Client extends Thread{
     public void sendData(){
         var text= JOptionPane.showInputDialog("text");
         try {
-            var IP= InetAddress.getByName("10.201.3.68");
+            var IP= InetAddress.getByName("192.168.0.22");
             out = new DatagramPacket(text.getBytes(), 0, text.getBytes().length, IP, 7800);
             try {
                 socket.send(out);
