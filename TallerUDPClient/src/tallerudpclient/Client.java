@@ -18,25 +18,25 @@ import javax.swing.JOptionPane;
  *
  * @author josep
  */
-public class Client extends Thread {
+public class Client extends Thread { //Clase del Cliente
 
-    private DatagramPacket out, in;
-    private DatagramSocket socket;
-    private String flag;
+    private DatagramPacket out, in; //Variable de Datagramas de entrada y salida
+    private DatagramSocket socket; //Variable del socket
+    private String flag; //Variable de la bandera
 
-    public Client() {
+    public Client() { //Clase para crear los socket
         try {
             socket = new DatagramSocket();
-            escribir("inicio");
+            escribir("inicio"); //Comando enviado al servidor para recibir la convexion
         } catch (SocketException ex) {
 
         }
     }
 
-    public void read() {
+    public void read() { //Funcion para leer los datos de los Datagramas
 
         try {
-            var buffer = new byte[200];
+            var buffer = new byte[400];
             out = new DatagramPacket(buffer, 0, buffer.length);
             socket.receive(out);
             readString(new String(out.getData()));
@@ -45,27 +45,33 @@ public class Client extends Thread {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    private void readString(String value){
+    private void readString(String value){ //Funcion para leer los datos y darles formato
         value=value.trim();
         System.out.println(value);
         var splitString= value.split(",");
         switch (splitString[0]) {
-            case "flag" :
+            case "flag" : //Caso para enviar el nombre del Cliente
                 flag= splitString[1];
                 System.out.println(flag);
-                
-                
+                send();               
                 break;
+            case "jugar": //Caso para jugar
+                send();
+            case "Ganaste!": //Caso cuando el jugador gana
+                System.out.println("Ganaste!");
+            case "Mejor suerte la proxima": //Caso cuando el jugador pierde
+                System.out.println("Mejor suerte la proxima");
+                System.exit(0);
             default:
                 throw new AssertionError();
         }
     }
-    public void send(){
-        var text =JOptionPane.showInputDialog("Escoja una pareja en las cordenadas (x,y)");
-        var data= "juega,"+flag+","+text;
+    public void send(){ //Clase para enviar los datos al servidor
+        var text =JOptionPane.showInputDialog("Escoja una pareja en las cordenadas (x1,y1,x2,y2)");
+        var data= "jugar,"+flag+","+text;
         escribir(data);
     }
-    private void escribir(String text){
+    private void escribir(String text){ //Funcion para escribir los datagramas
         try {
             in= new DatagramPacket(text.getBytes(), 0, text.getBytes().length, InetAddress.getLocalHost(), 7800);
         } catch (UnknownHostException ex) {
@@ -77,7 +83,7 @@ public class Client extends Thread {
             
         }
     }
-    @Override
+    @Override //Override de la Clase Run
     public void run(){
         while (true) {            
             read();

@@ -10,38 +10,38 @@ import java.net.InetAddress;
  *
  * @author josep
  */
-public class Client{
-    private int port;
-    private InetAddress ip;
-    private String flag;
+public class Client{ //Clase para crear los parametros del cliente en el servidor
+    private int port; //variable privada para obtener el puerto de enlace
+    private InetAddress ip; //variable privada para obtener la direccion IP  
+    private String flag; //variable privada para obtener el ID del Cliente
 
-    public Client(int port, InetAddress ip, String flag) {
+    public Client(int port, InetAddress ip, String flag) { //Constructor de la clase
         this.port = port;
         this.ip = ip;
         this.flag = flag;
     }
 
-    public int getPort() {
+    public int getPort() { //Getter para el puerto
         return port;
     }
 
-    public void setPort(int port) {
+    public void setPort(int port) { //Setter para el puerto
         this.port = port;
     }
 
-    public InetAddress getIp() {
+    public InetAddress getIp() { //Getter para la IP
         return ip;
     }
 
-    public void setIp(InetAddress ip) {
+    public void setIp(InetAddress ip) { //Setter para la IP
         this.ip = ip;
     }
 
-    public String getFlag() {
+    public String getFlag() { //Getter para la bandera
         return flag;
     }
 
-    public void setFlag(String flag) {
+    public void setFlag(String flag) { //Setter para la bandera
         this.flag = flag;
     }
     

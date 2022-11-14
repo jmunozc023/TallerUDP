@@ -14,7 +14,7 @@ public class TallerUDPClient {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        var client= new Client();
+        var client= new Client(); //Llamada para la clase Cliente
         client.start();
         while (true) {            
             client.send();
