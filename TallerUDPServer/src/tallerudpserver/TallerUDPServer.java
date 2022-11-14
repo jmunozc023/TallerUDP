@@ -16,7 +16,7 @@ public class TallerUDPServer {
     public static void main(String[] args) {
         var server = new Server();
         while (true) {            
-            server.getData();
+            server.read();
         }
     }
     

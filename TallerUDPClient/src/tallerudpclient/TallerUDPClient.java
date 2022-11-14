@@ -15,8 +15,10 @@ public class TallerUDPClient {
      */
     public static void main(String[] args) {
         var client= new Client();
-        client.sendData();
-        client.getData();
+        client.start();
+        while (true) {            
+            client.send();
+        }
     }
     
 }

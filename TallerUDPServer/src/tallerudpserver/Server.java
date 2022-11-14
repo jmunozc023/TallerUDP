@@ -39,47 +39,64 @@ public class Server {
         out = new DatagramPacket(buffer, 0, buffer.length);
         try {
             socket.receive(out);
+            ReadString(new String(out.getData()), out);
         } catch (IOException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     private void ReadString(String value, DatagramPacket client){
-        value= value.trim();
+        value=value.trim();
         var splitData= value.split(",");
         System.out.println(value);
         switch (splitData[0]) {
             case "inicio":
-                if (client1== null) {
-                    client1= new Client(client.getPort(), client.getAddress(), "x");
-                    
+                if (client1==null) {
+                    client1=new Client(client.getPort(), client.getAddress(), "Jugador1");
+                    escribir("flag,jugador1", client.getPort(), client.getAddress());
                 } else {
+                    client2= new Client(client.getPort(), client.getAddress(), "Jugador2");
+                    escribir("flag,jugador2", client.getPort(), client.getAddress());
                 }
-                
                 break;
+            /*case "jugar":
+                var flag=splitData[1];
+                var x= Integer.parseInt(splitData[2]);
+                var y= Integer.parseInt(splitData[3]);
+                if (parejas[x][y].isEmpty()) {
+                    
+                }*/
             default:
                 throw new AssertionError();
         }
+        print();
     }
-    
-    public void sendData(String text, DatagramPacket client) {
+    public void escribir (final String choice, final int port, final InetAddress IP){
+        in =new DatagramPacket(choice.getBytes(), 0, choice.getBytes().length, IP, port);
         try {
-            out = new DatagramPacket(text.getBytes(), 0, text.getBytes().length, client.getAddress(), client.getPort());
-            socket.send(out);
+            socket.send(in);
         } catch (IOException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void print(){
+        for (var i : parejas) {
+            for (var j : i) {
+                System.out.print(j+"|?|");
+                
+            }
+            System.out.println("");
+            
         }
     }
 
-    public void getData() {
-        var buffer = new byte[400];
-        in = new DatagramPacket(buffer, buffer.length);
-        try {
-            socket.receive(in);
-            var text = new String(in.getData());
-            System.out.println(text.trim());
-            sendData("hola cliente", in);
-        } catch (IOException ex) {
-            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+    static {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                parejas[i][j]= new String();
+                
+            }
+            
         }
     }
+    
 }
